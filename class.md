@@ -21,6 +21,8 @@
 > [[Enumerable]] : 클래스의 constuctor,프로토타입 메서드, 정적 메서드는 모두 [[Enumerable]]의 값이 false다.
 - 클래스는 생성자 함수보다 상속 관계 구현을 더욱 명료하게 하기 때문데, 객체지향을 더욱 견고하게 만든다고 하기도 한다.
 
+
+
 ## 클래스의 정의와 메서드
 
 > Pascal Case사용
@@ -32,9 +34,22 @@ class Per{
 
 > new 연산자사용
 ```js
-const a = new per();
+const a = new Per();
 // new 연산자 없을 경우
 const b = per();
+
+
+class User {
+  constructor({name}){
+    this.name = name;
+  }
+  welcome(){
+    console.log(`Welcome ${this.name}`)
+  }
+}
+let user1 = new User({name : 'Bob'});
+user1.welcome(); // 'Welcome Bob'
+
 ```
 # 자바스크립트 클래스 문법
 
@@ -73,7 +88,7 @@ console.log(lkj.height); // 180
 ## class 메소드 정의
 
 ```js
-class c{
+class C{
     add(x,y) {
         return x+y;
     }
@@ -81,7 +96,7 @@ class c{
         return x-y;
     }
 }
-let calc = new c();
+let calc = new C();
 calc.add(1,2) // 3
 calc.su(5,2) // 3
 ```
@@ -167,3 +182,31 @@ Per.static_sumAge(per1, per2);
 > 클래스는 생성자 함수이며 new 연산자와 함께 호출되어 인스턴스를 생성한다.
 > 함수는 new 사용 여부에 따라 일반 함수나 생성자 함수로 호출되지만 클래스는 생성자 함수이므로 반드시 new 연산자와 함께 호출해야 한다.
 > 클래스 표현식으로 정의된 클래스의 경우 다음처럼 기명 클래스 표현식의 클래스 이름으로 인스턴스를 생성할 수 없다.
+
+# 객체지향 설계 5원칙 SOLID
+- SRP(Single Responsibility Principle): 단일 책임 원칙
+- OCP(Open Closed Principle): 개방 폐쇄 원칙
+- LSP(Listov Substitution Principle): 리스코프 치환 원칙
+- ISP(Interface Segregation Principle): 인터페이스 분리 원칙
+- DIP(Dependency Inversion Principle): 의존 역전 원칙
+>
+#### 1. SRP(Single Responsibility Principle): 단일 책임 원칙
+> SRP란 Single Responsibility Principle 라는 단일 책임 원칙을 의미하며 말 그대로 단 하나의 책임을 가져야 한다는 것을 의미한다. 여기서 말하는 책임의 기본 단위는 객체를 의미하며 하나의 객체가 하나의 책임을 가져야 한다는 의미이다. 그렇다면 책임은 무엇인가? 객체지향에 있어서 책임이란 객체가 할 수 있는 것 과 해야 하는 것 으로 나뉘어져 있다. 즉 하나의 객체는 자신이 할 수 있는 것과 해야하는 것만 수행할 수 있도록 설계되어야 한다는 법칙이다.
+클래스는 그 책임을 완전히 캡슐화해야 함을 말한다.
+
+#### 2. OCP(Open Closed Principle): 개방 폐쇄 원칙
+> 개방 폐쇄 원칙이란 간단하게 말해 기존의 코드를 변경하지 않으면서 기능을 추가할 수 있도록 설계되어야 한다는 뜻이다. OCP에서 중요한 것은 요구사항이 변경되었을 때 코드에서 변경되어야 하는 부분과 변경되지 않아야하는 부분을 명확하게 구분하여, 변경되어야 하는 부분을 유연하게 작성하는 것을 의미한다. 또한 확장에는 유연하게 반응하며 변경은 최소화하는 것을 의미한다.
+
+#### 3. LSP(Listov Substitution Principle): 리스코프 치환 원칙
+> 리스코프 치환 원칙은 단순하게 풀어보면 LSP는 일반화 관계에 대한 이야기이며 자식 클래스는 최소한 자신의 부모 클래스에서 가능한 행위를 수행할 수 있어야 한다는 의미이다. 좀 더 쉽게 이야기하면 LSP를 만족하면 프로그램에서 부모 클래스의 인스턴스 대신에 자식 클래스의 인스턴스로 대체해도 프로그램의 의미는 변화되지 않는다. 이를 위해 부모 클래스와 자식 클래스의 행위는 일관되어야 한다.
+
+#### 4. ISP(Interface Segregation Principle): 인터페이스 분리 원칙
+> Interface Segregation Principle 인터페이스 분리 원칙은 클라이언트에서는 클라이언트 자신이 이용하지 않는 기능에는 영향을 받지 않아야 한다는 내용이 담겨 있다. 예를 들어 복합기를 이용하는 다양한 사람을 생각해보자. 복사를 하고 싶은사람과 프린트를 하고 싶은사람, 팩스를 보내고 싶은 사람은 복합기가 다양한 기능을 제공하고 있지만 본인이 원하는 기능만이 작동하면 되며 자신이 이용하지 않는 기능에 대해서는 영향을 받지 않는다. 이러한 기능을 제공하고 싶을 때 사용되는 것이 ISP이며 사용 방법은 범용의 인터페이스를 만드는 것이 아니라 클라이언트에 특화된 인터페이스를 사용해야한다. 즉 인터페이스를 클라이언트에 특화되도록 분리시키라는 설계 원칙이라고 할 수 있다.
+
+#### 5. DIP(Dependency Inversion Principle): 의존 역전 원칙
+> 고차원 모듈은 저차원 모듈에 의존하면 안 된다. 이 두 모듈 모두 다른 추상화된 것에 의존해야 한다.
+추상화된 것은 구체적인 것에 의존하면 안 된다. 구체적인 것이 추상화된 것에 의존해야 한다.
+자주 변경되는 구체(Concrete) 클래스에 의존하지 말것.
+
+> 객체지향 프로그래밍에서 객체는 서로 도움을 주고 받으며 의존 관계를 발생시킨다. Dependency Inversion Principle은 그러한 의존 관계를 맺을 때 변화하기 쉬운 것 또는 자주 변화하는 것보다는 변화하기 어려운 것, 거의 변화가 없는 것에 의존하라는 가이드라인을 제공하는 원칙이다.
+
